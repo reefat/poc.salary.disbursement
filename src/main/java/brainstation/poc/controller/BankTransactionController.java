@@ -53,15 +53,11 @@ public class BankTransactionController {
 		return modelAndView;
 	}
 
-	@GetMapping(value = "addmoney")
-	public ModelMap addmoney(RedirectAttributes redirectAttributes,
-			@RequestParam(required = false, name = "incompleteDisbursement") final boolean incompleteDisbursement,
-			@RequestParam(required = false, name = "month") final String month,
-			@RequestParam(required = false, name = "year") final Integer year) {
+	@GetMapping(value = "addmoneyndisburse")
+	public ModelMap addmoneyndisburse(RedirectAttributes redirectAttributes,
+			@ModelAttribute("incompleteDisbursement") final boolean incompleteDisbursement,
+			@ModelAttribute("month") final String month, @ModelAttribute("year") final Integer year) {
 		ModelMap modelMap = new ModelMap();
-		System.out.println("###---month---" + month);
-		System.out.println("###---year---" + year);
-		System.out.println("###---incompleteDisbursement---" + incompleteDisbursement);
 		BalanceViewAndUpdate balanceViewAndUpdate = new BalanceViewAndUpdate();
 		balanceViewAndUpdate.setMonth(month);
 		balanceViewAndUpdate.setIncompleteDisbursement(incompleteDisbursement);
@@ -73,14 +69,14 @@ public class BankTransactionController {
 		return modelMap;
 	}
 
-	// @GetMapping(value = "addmoney")
-	// public ModelMap addmoney(RedirectAttributes redirectAttributes) {
-	// ModelMap modelMap = new ModelMap();
-	//
-	// modelMap.addAttribute("companyAccountAddMoney", new BalanceViewAndUpdate());
-	//
-	// return modelMap;
-	// }
+	@GetMapping(value = "addmoney")
+	public ModelMap addmoney(RedirectAttributes redirectAttributes) {
+		ModelMap modelMap = new ModelMap();
+
+		modelMap.addAttribute("companyAccountAddMoney", new BalanceViewAndUpdate());
+
+		return modelMap;
+	}
 
 	@PostMapping("/addmoney")
 	public String addMoneyToCompanySalaryAccount(
@@ -101,12 +97,11 @@ public class BankTransactionController {
 								response.getReasonCode() == AppConstants.REASON_CODE_INSUFFICIENT_BALANCE);
 						redirectAttributes.addFlashAttribute("errorMessage", response.getMessage());
 						if (response.getReasonCode() == AppConstants.REASON_CODE_INSUFFICIENT_BALANCE) {
-							
-							redirectAttributes.addFlashAttribute("incompleteDisbursement", true);
+
 							redirectAttributes.addFlashAttribute("month", balanceViewAndUpdate.getMonth());
 							redirectAttributes.addFlashAttribute("year", balanceViewAndUpdate.getYear());
 
-							return "redirect:/pages/banktransaction/addmoney";
+							return "redirect:/pages/banktransaction/addmoneyndisburse";
 						} else {
 							return "redirect:/pages/banktransaction/salarydisburse";
 						}
@@ -158,7 +153,7 @@ public class BankTransactionController {
 						redirectAttributes.addAttribute("month", salaryDisbursement.getMonth());
 						redirectAttributes.addAttribute("year", salaryDisbursement.getYear());
 
-						return "redirect:/pages/banktransaction/addmoney";
+						return "redirect:/pages/banktransaction/addmoneyndisburse";
 					} else {
 						return "redirect:/pages/banktransaction/salarydisburse";
 					}
