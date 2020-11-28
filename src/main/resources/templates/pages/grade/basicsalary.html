@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+<head>
+<title>Home</title>
+<link rel="stylesheet"
+	th:href="@{/assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css}" />
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12">
+				<form id="form" action="#" th:action="@{/pages/grade/basicsalary}"
+					th:object="${gradeBasicPay}" class="form-horizontal" method="post">
+					<section class="panel">
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Basic Salary For Minimum Grade <span
+									class="required">*</span></label>
+								<div class="col-sm-9">
+									<input type="text" name="basicSalary" th:field="*{basicSalary}"
+										class="form-control" placeholder="10000" required />
+								</div>
+							</div>
+						</div>
+						<footer class="panel-footer">
+							<div class="row">
+								<div class="col-sm-9 col-sm-offset-3">
+									<button class="btn btn-primary">Submit</button>
+									<button type="reset" class="btn btn-default">Reset</button>
+								</div>
+							</div>
+						</footer>
+					</section>
+				</form>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

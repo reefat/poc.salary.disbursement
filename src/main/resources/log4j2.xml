@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="30">
+	<Appenders>
+		<RollingFile name="reqResponseLogger"
+			fileName="logs/req-response/req-response-log"
+			filePattern="logs/req-response/req-response-log-%d{yyyy-MM-dd}.log"
+			immediateFlush="true">
+			<PatternLayout
+				pattern="%d{DEFAULT}{GMT+06:00} %-5p - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<!-- loggers for other modules -->
+		<Logger name="quizgiri.admin.reqresp" level="debug"
+			additivity="false">
+			<AppenderRef ref="reqResponseLogger" />
+		</Logger>
+	</Loggers>
+</Configuration>

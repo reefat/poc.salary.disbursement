@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+<head>
+<title>Home</title>
+<link rel="stylesheet"
+	th:href="@{/assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css}" />
+</head>
+<body>
+	<section layout:fragment="content">
+		<section class="panel">
+			<header class="panel-heading">
+				<div class="panel-actions">
+					<a href="#" class="fa fa-caret-down"></a> <a href="#"
+						class="fa fa-times"></a>
+				</div>
+				<h2 class="panel-title">Employee List Upload</h2>
+			</header>
+			<div class="panel-body">
+				<form class="form-horizontal form-bordered" method="post"
+					th:object="${employeeFileUpload}">
+					<div class="form-group">
+						<div class="col-md-2">
+							<a class="btn btn-primary" target="_blank"
+								href="/assets/download-sample.xlsx">Download Sample</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+
+		<div class="row">
+			<div class="col-md-12">
+				<form id="form" action="#" th:action="@{/pages/employee/upload}"
+					enctype="multipart/form-data" th:object="${employeeFileUpload}"
+					class="form-horizontal" method="post">
+					<section class="panel">
+						<div class="panel-body">
+							<div class="alert alert-success" th:if="${message}">
+								<button type="button" class="close" data-dismiss="alert"
+									aria-hidden="true">×</button>
+								<strong th:text="${message}">Success</strong>
+							</div>
+							<div class="alert alert-danger" th:if="${errorMessage}">
+								<button type="button" class="close" data-dismiss="alert"
+									aria-hidden="true">×</button>
+								<strong th:text="${errorMessage}">Error</strong>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Upload Employee
+									(in xls)</label>
+								<div class="col-md-6">
+									<div class="fileupload fileupload-new"
+										data-provides="fileupload">
+										<div class="input-append">
+											<div class="uneditable-input">
+												<i class="fa fa-file fileupload-exists"></i> <span
+													class="fileupload-preview"></span>
+											</div>
+											<span class="btn btn-default btn-file"> <span
+												class="fileupload-exists">Change</span> <span
+												class="fileupload-new">Select Employee</span> <input
+												type="file" th:field="*{xlFile}"
+												accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+												required />
+											</span> <a href="#" class="btn btn-default fileupload-exists"
+												data-dismiss="fileupload">Remove</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<footer class="panel-footer">
+							<div class="row">
+								<div class="col-sm-9 col-sm-offset-3">
+									<button class="btn btn-primary">Upload</button>
+									<button type="reset" class="btn btn-default">Reset</button>
+								</div>
+							</div>
+						</footer>
+					</section>
+				</form>
+			</div>
+		</div>
+	</section>
+	<!-- Specific Page Vendor -->
+	<th:block layout:fragment="script">
+		<!-- <script th:src="@{/assets/vendor/jquery-autosize/jquery.autosize.js}"></script> -->
+		<script
+			th:src="@{/assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js}"></script>
+	</th:block>
+</body>
+</html>

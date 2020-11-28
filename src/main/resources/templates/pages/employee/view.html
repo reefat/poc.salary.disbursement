@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+<head>
+<title>Home</title>
+<!-- Specific Page Vendor CSS -->
+<link rel="stylesheet" th:href="@{/assets/vendor/select2/select2.css}" />
+<link rel="stylesheet" th:href="@{/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css}" />
+</head>
+<body>
+	<section layout:fragment="content">
+		<section class="panel">
+			<header class="panel-heading">
+				<div class="panel-actions">
+					<a href="#" class="fa fa-caret-down"></a> <a href="#" class="fa fa-times"></a>
+				</div>
+				<h2 class="panel-title">Employee</h2>
+			</header>
+		</section>
+		<!-- ---------------------------- TABLE FOR LIST VIEW ---------------------------- -->
+		<section class="panel">
+			<div class="panel-body">
+				<div class="alert alert-success" th:if="${message}">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					<strong th:text="${message}">Success</strong>
+				</div>
+				<table class="table table-bordered table-striped mb-none" id="employee-view">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Grade</th>
+							<th>Address</th>
+							<th>Mobile Number</th>
+							<th>Bank A/C Type</th>
+							<th>Bank A/C Name</th>
+							<th>Bank A/C Number</th>
+							<th>Current Balance</th>
+							<th>Bank Name</th>
+							<th>Branch Name</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr th:each="employee : ${employeeList}">
+							<td><span th:text="${employee.id}"> ID </span></td>
+							<td><span th:text="${employee.name}"> Employee Name </span></td>
+							<td><span th:text="${employee.grade != null ? employee.grade.grade : n/a }"> Grade </span></td>
+							<td><span th:text="${employee.address}"> Address </span></td>
+							<td><span th:text="${employee.mobile}"> Mobile </span></td>
+							<td><span th:text="${employee.bankAccount != null ? employee.bankAccount.bankAccountType.name : n/a }"> Bank A/C Type </span></td>
+							<td><span th:text="${employee.bankAccount != null ? employee.bankAccount.accountName : n/a }"> Bank A/C Name </span></td>
+							<td><span th:text="${employee.bankAccount != null ? employee.bankAccount.accountNumber : n/a }"> Bank A/C Number </span></td>
+							<td><span th:text="${employee.bankAccount != null ? employee.bankAccount.currentBalance : n/a }"> Current Balance </span></td>
+							<td><span th:text="${employee.bankAccount != null ? employee.bankAccount.bankName : n/a }"> Bank Name </span></td>
+							<td><span th:text="${employee.bankAccount != null ? employee.bankAccount.branchName : n/a }"> Branch Name </span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</section>
+	<!-- Specific Page Vendor -->
+	<th:block layout:fragment="script">
+		<script th:src="@{/assets/vendor/select2/select2.js}"></script>
+		<script th:src="@{/assets/vendor/jquery-datatables/media/js/jquery.dataTables.js}"></script>
+		<script
+			th:src="@{/assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js}"></script>
+		<script th:src="@{/assets/vendor/jquery-datatables-bs3/assets/js/datatables.js}"></script>
+		<script th:src="@{/assets/custom/js/dt.js}"></script>
+	</th:block>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+<head>
+<title>Home</title>
+<link rel="stylesheet"
+	th:href="@{/assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css}" />
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12">
+				<form id="form" action="#"
+					th:action="@{/pages/banktransaction/salarydisburse}"
+					th:object="${salaryDisbursement}" class="form-horizontal"
+					method="post">
+					<section class="panel">
+
+						<div class="alert alert-success" th:if="${message}">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-hidden="true">×</button>
+							<strong th:text="${message}">Success</strong>
+						</div>
+						<div class="alert alert-danger" th:if="${errorMessage}">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-hidden="true">×</button>
+							<strong th:text="${errorMessage}">Error</strong>
+						</div>
+
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Year <span
+									class="required">*</span></label>
+								<div class="col-sm-9">
+									<input type="text" name="year" th:field="*{year}"
+										class="form-control" placeholder="Between 2000 and 3000"
+										required />
+								</div>
+							</div>
+						</div>
+
+
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Month <span
+									class="required">*</span></label>
+								<div class="col-sm-9">
+									<input type="text" name="month" th:field="*{month}"
+										class="form-control" placeholder="SEP" required />
+								</div>
+							</div>
+						</div>
+
+
+						<footer class="panel-footer">
+							<div class="row">
+								<div class="col-sm-9 col-sm-offset-3">
+									<button class="btn btn-primary">Submit</button>
+									<button type="reset" class="btn btn-default">Reset</button>
+								</div>
+							</div>
+						</footer>
+					</section>
+				</form>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
